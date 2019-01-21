@@ -105,7 +105,6 @@
 @property (nonatomic, assign) BOOL random;
 @property (nonatomic, assign) id <SIPassWordKeyBoardWordPadDelegate> delegate;
 @property (nonatomic, strong) NSArray  *wordArray;
-@property (nonatomic, strong) NSArray  *WORDArray;
 @property (nonatomic, weak)   UIButton *trasitionWordBtn;
 @property (nonatomic, weak)   UIButton *numPadCheckBtn;
 @property (nonatomic, weak)   UIButton *symbolBtn;
@@ -131,7 +130,7 @@
 }
 - (void)okBtnClick{
     BOOL canReturn = YES;
-    if ([self.responder respondsToSelector:@selector(textFieldShouldReturn:)]) {
+    if ([self.responder.delegate respondsToSelector:@selector(textFieldShouldReturn:)]) {
         canReturn = [self.responder.delegate textFieldShouldReturn:self.responder];
     }
     
@@ -167,7 +166,7 @@
     UITextRange *selectionRange = [self textRangeFromRange:range inTextField:textField];
     [textField setSelectedTextRange:selectionRange];
 }
-+ (void)appendString:(NSString *)newString forResponder :(UITextField *)textField{
++ (void)appendString:(NSString *)newString forResponder:(UITextField *)textField{
     
     NSRange selectRange = [SIPassWordKeyBoardTool rangeFromTextRange:textField.selectedTextRange inTextField:textField];
     
@@ -181,8 +180,8 @@
     
     [[NSNotificationCenter defaultCenter] postNotificationName:UITextFieldTextDidChangeNotification object:textField userInfo:nil];
 }
+
 + (void)deleteStringForResponder:(UITextField *)textField{
-    
     [textField deleteBackward];
 }
 
@@ -367,7 +366,6 @@
 
 #pragma mark - SIPassWordKeyBoardBtnDelegate
 -(void)keyboardBtnDidClick:(SIPassWordKeyBoardBtn *)btn{
-    
     [SIPassWordKeyBoardTool appendString:btn.titleLabel.text forResponder:self.responder];
 }
 
@@ -403,7 +401,6 @@
     }
 }
 - (void)setPadType:(SIPassWordKeyBoardNumPadType)padType{
-    
     if (padType == SIPassWordKeyBoardNumPadOnly) {
         self.numArray = @[@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"0"];
     }else{
