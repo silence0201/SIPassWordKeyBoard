@@ -8,10 +8,11 @@
 
 #import "ViewController.h"
 #import "SIPassWordKeyBoard.h"
+#import "UITextField+PassWord.h"
 
 #define iPhoneX ([UIApplication sharedApplication].statusBarFrame.size.height == 44.f)
 
-@interface ViewController ()
+@interface ViewController ()<UITextFieldDelegate>
 
 @end
 
@@ -20,15 +21,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UITextField *text = [[UITextField alloc]initWithFrame:CGRectMake(0, 0, 100, 50)];
-    text.borderStyle = UITextBorderStyleRoundedRect;
-    text.center = self.view.center;
+    UITextField *textField = [[UITextField alloc]initWithFrame:CGRectMake(0, 0, 100, 50)];
+    textField.borderStyle = UITextBorderStyleRoundedRect;
+    textField.center = self.view.center;
+    textField.passWordKeyBoardType = SITextFieldPasswordTypeRandomDefault;
+    textField.delegate = self;
+    [self.view addSubview:textField];
     
-    SIPassWordKeyBoard *keyBoard = [[SIPassWordKeyBoard alloc]initWithKeyBoardType:SIPassWordKeyBoardNumPadDefault];
-    
-    text.inputView = keyBoard;
-    [self.view addSubview:text];
-    
+}
+
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    NSLog(@"%s", __func__);
+    return YES;
+}
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    NSLog(@"%s", __func__);
+    return YES;
 }
 
 

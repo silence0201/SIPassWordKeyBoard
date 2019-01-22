@@ -502,6 +502,8 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     }else if(self.padType == SIPassWordKeyBoardNumPadOnly){
         for (int i = 0; i<self.btnArray.count; i++) {
             UIButton *btn = self.btnArray[i];
+            btn.layer.cornerRadius = 5;
+            btn.layer.masksToBounds = YES;
             btn.tag = i;
         }
     }
@@ -512,18 +514,12 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
     CGSize currentSize = self.bounds.size;
     int padMargin = 0;
     UIDeviceOrientation currentOri = [UIDevice currentDevice].orientation;
-    
-    CGFloat height = [UIApplication sharedApplication].statusBarFrame.size.height;
-    
-    NSLog(@"%f", height);
-    
     if (iPhoneX && (currentOri == UIDeviceOrientationLandscapeLeft || currentOri == UIDeviceOrientationLandscapeRight)) {
         currentSize = CGSizeMake(currentSize.width-60, currentSize.height);
         padMargin = 30 ;
     }
     
     if (self.padType == SIPassWordKeyBoardNumPadOnly) {
-        
         int rowNum = 4;//行
         int lineNum = 3;//列
         
@@ -550,7 +546,6 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
             btn.frame = CGRectMake(padMargin +margin + btn.tag % lineNum * (btnW + margin), margin + btn.tag / lineNum * (btnH + margin), btnW, btnH);
         }
     }else{
-        
         CGFloat btnW = (currentSize.width - 5*margin)/4;
         CGFloat btnH = (currentSize.height - 5*margin)/4;
         for (SIPassWordKeyBoardBtn *btn in self.btnArray) {
@@ -826,6 +821,11 @@ isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bo
         self.wordPad.frame = self.bounds;
         [self.symbolPad removeFromSuperview];
     }
+}
+
+- (void)setRandom:(BOOL)random{
+    _random = random;
+    self.numPad.random = random;
 }
 
 

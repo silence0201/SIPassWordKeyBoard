@@ -15,6 +15,7 @@
 		E8D8108621F6032100D5DA1B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E8D8108521F6032100D5DA1B /* main.m */; };
 		E8D8108E21F60CD500D5DA1B /* images.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E8D8108D21F60CD500D5DA1B /* images.bundle */; };
 		E8D8109121F60CFB00D5DA1B /* SIPassWordKeyBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = E8D8109021F60CFB00D5DA1B /* SIPassWordKeyBoard.m */; };
+		E8F2C37A21F75E85003B3A03 /* UITextField+PassWord.m in Sources */ = {isa = PBXBuildFile; fileRef = E8F2C37921F75E85003B3A03 /* UITextField+PassWord.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,8 @@
 		E8D8108D21F60CD500D5DA1B /* images.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = images.bundle; sourceTree = "<group>"; };
 		E8D8108F21F60CFB00D5DA1B /* SIPassWordKeyBoard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SIPassWordKeyBoard.h; sourceTree = "<group>"; };
 		E8D8109021F60CFB00D5DA1B /* SIPassWordKeyBoard.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SIPassWordKeyBoard.m; sourceTree = "<group>"; };
+		E8F2C37821F75E85003B3A03 /* UITextField+PassWord.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITextField+PassWord.h"; sourceTree = "<group>"; };
+		E8F2C37921F75E85003B3A03 /* UITextField+PassWord.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITextField+PassWord.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +86,8 @@
 				E8D8108D21F60CD500D5DA1B /* images.bundle */,
 				E8D8108F21F60CFB00D5DA1B /* SIPassWordKeyBoard.h */,
 				E8D8109021F60CFB00D5DA1B /* SIPassWordKeyBoard.m */,
+				E8F2C37821F75E85003B3A03 /* UITextField+PassWord.h */,
+				E8F2C37921F75E85003B3A03 /* UITextField+PassWord.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -160,6 +165,7 @@
 			files = (
 				E8D8107B21F6032000D5DA1B /* ViewController.m in Sources */,
 				E8D8108621F6032100D5DA1B /* main.m in Sources */,
+				E8F2C37A21F75E85003B3A03 /* UITextField+PassWord.m in Sources */,
 				E8D8107821F6032000D5DA1B /* AppDelegate.m in Sources */,
 				E8D8109121F60CFB00D5DA1B /* SIPassWordKeyBoard.m in Sources */,
 			);
