@@ -8,16 +8,7 @@
 
 #import "SIPassWordKeyBoard.h"
 
-#define iPhoneX ([UIApplication sharedApplication].statusBarFrame.size.height == 44.f)
 #define margin 5
-
-
-@interface UIButton (SIExtension)
-
-- (void)setCornerCutType:(UIRectCorner)corner;
-- (void)resetCornerCut;
-
-@end
 
 @interface SIPassWordKeyBoardBasePad:UIView
 
@@ -187,27 +178,6 @@
 
 @end
 
-@implementation UIButton (SIExtension)
-
-- (void)setCornerCutType:(UIRectCorner)corner{
-    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.layer.bounds byRoundingCorners:corner cornerRadii:CGSizeMake(30, 30)];
-    CAShapeLayer * maskLayer = [CAShapeLayer new];
-    maskLayer.frame = self.layer.bounds;
-    maskLayer.path = maskPath.CGPath;
-    self.layer.mask = maskLayer;
-}
-- (void)resetCornerCut{
-    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.layer.bounds byRoundingCorners:UIRectCornerAllCorners cornerRadii:CGSizeMake(1, 1)];
-    CAShapeLayer * maskLayer = [CAShapeLayer new];
-    maskLayer.frame = self.layer.bounds;
-    maskLayer.path = maskPath.CGPath;
-    self.layer.mask = maskLayer;
-    self.layer.cornerRadius = 5;
-    self.layer.masksToBounds = true;
-}
-
-@end
-
 @implementation SIPassWordKeyBoardBtn
 
 + (SIPassWordKeyBoardBtn *)buttonWithTitle:(NSString *)title tag:(NSInteger)tag delegate:(id)delegate{
@@ -335,11 +305,6 @@
     
     CGSize currentSize = self.bounds.size;
     int padMargin = 0;
-    UIDeviceOrientation currentOri = [UIDevice currentDevice].orientation;
-    if (iPhoneX && currentOri != UIDeviceOrientationPortrait) {
-        currentSize = CGSizeMake(currentSize.width-60, currentSize.height);
-        padMargin = currentOri == UIDeviceOrientationLandscapeLeft ||  currentOri == UIDeviceOrientationLandscapeRight? 30 : 0;
-    }
     
     CGFloat btnW = (currentSize.width - 13*margin)/10;
     CGFloat btnH = (currentSize.height - 5*margin)/4;
@@ -355,13 +320,6 @@
     self.deleteBtn.frame = CGRectMake(padMargin + 4*margin + 2*bigBtnW, 4*margin + btnH*3, bigBtnW, btnH);
     self.okBtn.frame = CGRectMake(padMargin + 5*margin + 3*bigBtnW, 4*margin + btnH*3, bigBtnW, btnH);
     
-    if (iPhoneX && currentOri == UIDeviceOrientationPortrait) {
-        [self.numPadCheckBtn setCornerCutType:UIRectCornerBottomLeft];
-        [self.okBtn setCornerCutType:UIRectCornerBottomRight];
-    }else if(iPhoneX){
-        [self.numPadCheckBtn resetCornerCut];
-        [self.okBtn resetCornerCut];
-    }
 }
 
 #pragma mark - SIPassWordKeyBoardBtnDelegate
@@ -539,10 +497,6 @@
     CGSize currentSize = self.bounds.size;
     int padMargin = 0;
     UIDeviceOrientation currentOri = [UIDevice currentDevice].orientation;
-    if (iPhoneX && currentOri != UIDeviceOrientationPortrait) {
-        currentSize = CGSizeMake(currentSize.width-60, currentSize.height);
-        padMargin = currentOri == UIDeviceOrientationLandscapeLeft ||  currentOri == UIDeviceOrientationLandscapeRight? 30 : 0;
-    }
     
     if (self.padType == SIPassWordKeyBoardNumPadOnly) {
         
@@ -570,13 +524,6 @@
         
         for (SIPassWordKeyBoardBtn *btn in self.btnArray) {
             btn.frame = CGRectMake(padMargin +margin + btn.tag % lineNum * (btnW + margin), margin + btn.tag / lineNum * (btnH + margin), btnW, btnH);
-            if ((btn.tag == (rowNum-1)*lineNum)  && iPhoneX) {
-                if (currentOri == UIDeviceOrientationPortrait) [btn setCornerCutType:UIRectCornerBottomLeft];
-                else [btn resetCornerCut];
-            }else if (btn.tag == 11 && iPhoneX){
-                if (currentOri == UIDeviceOrientationPortrait) [btn setCornerCutType:UIRectCornerBottomRight];
-                else [btn resetCornerCut];
-            }
         }
     }else{
         
@@ -584,13 +531,6 @@
         CGFloat btnH = (currentSize.height - 5*margin)/4;
         for (SIPassWordKeyBoardBtn *btn in self.btnArray) {
             btn.frame = CGRectMake(padMargin +margin + btn.tag % 4 * (btnW + margin), margin + btn.tag / 4 * (btnH + margin), btnW, btnH);
-            if (btn.tag == 12 && iPhoneX) {
-                if (currentOri == UIDeviceOrientationPortrait) [btn setCornerCutType:UIRectCornerBottomLeft];
-                else [btn resetCornerCut];
-            }else if (btn.tag == 15 && iPhoneX){
-                if (currentOri == UIDeviceOrientationPortrait) [btn setCornerCutType:UIRectCornerBottomRight];
-                else [btn resetCornerCut];
-            }
         }
     }
 }
@@ -725,11 +665,6 @@
     [super layoutSubviews];
     CGSize currentSize = self.bounds.size;
     int padMargin = 0;
-    UIDeviceOrientation currentOri = [UIDevice currentDevice].orientation;
-    if (iPhoneX && currentOri != UIDeviceOrientationPortrait) {
-        currentSize = CGSizeMake(currentSize.width-60, currentSize.height);
-        padMargin = currentOri == UIDeviceOrientationLandscapeLeft ||  currentOri == UIDeviceOrientationLandscapeRight? 30 : 0;
-    }
     
     CGFloat smallBtnW = (currentSize.width - 13*margin)/10;
     CGFloat btnH = (currentSize.height - 5*margin)/4;
@@ -759,17 +694,6 @@
     btn.frame = CGRectMake(padMargin + 2*margin+bigBtnW, 4*margin + btnH*3, bigBtnW, btnH);
     self.symbolBtn.frame = CGRectMake(padMargin + 3*margin + 2*bigBtnW, 4*margin + btnH*3, bigBtnW, btnH);
     self.okBtn.frame = CGRectMake(padMargin + 4*margin + 3*bigBtnW, 4*margin + btnH*3, bigBtnW, btnH);
-    
-    if (iPhoneX) {
-        if (currentOri == UIDeviceOrientationPortrait) {
-            [self.numPadCheckBtn setCornerCutType:UIRectCornerBottomLeft];
-            [self.okBtn setCornerCutType:UIRectCornerBottomRight];
-        }else{
-            [self.numPadCheckBtn resetCornerCut];
-            [self.okBtn resetCornerCut];
-        }
-    }
-    
 }
 
 #pragma mark - SIPassWordKeyBoardBtnDelegate

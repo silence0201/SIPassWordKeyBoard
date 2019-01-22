@@ -7,6 +7,9 @@
 //
 
 #import "ViewController.h"
+#import "SIPassWordKeyBoard.h"
+
+#define iPhoneX ([UIApplication sharedApplication].statusBarFrame.size.height == 44.f)
 
 @interface ViewController ()
 
@@ -16,6 +19,24 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    UITextField *text = [[UITextField alloc]initWithFrame:CGRectMake(0, 0, 100, 50)];
+    text.borderStyle = UITextBorderStyleRoundedRect;
+    text.center = self.view.center;
+    
+    SIPassWordKeyBoard *keyBoard = [[SIPassWordKeyBoard alloc]initWithKeyBoardType:SIPassWordKeyBoardNumPadDefault];
+    keyBoard.frame = CGRectMake(0, 0, 320, 216);
+    
+    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 216)];
+    if (iPhoneX) {
+        view.frame = CGRectMake(0, 0, 320, 216 + 44);
+    }
+    [view addSubview:keyBoard];
+    view.backgroundColor = keyBoard.backgroundColor;
+    
+    text.inputView = view;
+    [self.view addSubview:text];
+    
 }
 
 
