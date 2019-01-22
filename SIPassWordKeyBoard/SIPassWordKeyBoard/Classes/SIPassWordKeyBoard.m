@@ -8,7 +8,15 @@
 
 #import "SIPassWordKeyBoard.h"
 
+#define iPhoneX \
+({BOOL isPhoneX = NO;\
+if (@available(iOS 11.0, *)) {\
+isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bottom > 0.0;\
+}\
+(isPhoneX);})
+
 #define margin 5
+
 
 @interface SIPassWordKeyBoardBasePad:UIView
 
@@ -110,6 +118,7 @@
     }
     return self;
 }
+
 - (UITextField *)responder{
     UIWindow *keyWindow = [[UIApplication sharedApplication] keyWindow];
     UIView *firstResponder = [keyWindow valueForKey:@"firstResponder"];
@@ -177,6 +186,7 @@
 }
 
 @end
+
 
 @implementation SIPassWordKeyBoardBtn
 
@@ -305,6 +315,11 @@
     
     CGSize currentSize = self.bounds.size;
     int padMargin = 0;
+    UIDeviceOrientation currentOri = [UIDevice currentDevice].orientation;
+    if (iPhoneX && (currentOri == UIDeviceOrientationLandscapeLeft || currentOri == UIDeviceOrientationLandscapeRight)) {
+        currentSize = CGSizeMake(currentSize.width-60, currentSize.height);
+        padMargin = 30 ;
+    }
     
     CGFloat btnW = (currentSize.width - 13*margin)/10;
     CGFloat btnH = (currentSize.height - 5*margin)/4;
@@ -498,6 +513,15 @@
     int padMargin = 0;
     UIDeviceOrientation currentOri = [UIDevice currentDevice].orientation;
     
+    CGFloat height = [UIApplication sharedApplication].statusBarFrame.size.height;
+    
+    NSLog(@"%f", height);
+    
+    if (iPhoneX && (currentOri == UIDeviceOrientationLandscapeLeft || currentOri == UIDeviceOrientationLandscapeRight)) {
+        currentSize = CGSizeMake(currentSize.width-60, currentSize.height);
+        padMargin = 30 ;
+    }
+    
     if (self.padType == SIPassWordKeyBoardNumPadOnly) {
         
         int rowNum = 4;//行
@@ -665,6 +689,11 @@
     [super layoutSubviews];
     CGSize currentSize = self.bounds.size;
     int padMargin = 0;
+    UIDeviceOrientation currentOri = [UIDevice currentDevice].orientation;
+    if (iPhoneX && (currentOri == UIDeviceOrientationLandscapeLeft || currentOri == UIDeviceOrientationLandscapeRight)) {
+        currentSize = CGSizeMake(currentSize.width-60, currentSize.height);
+        padMargin = 30 ;
+    }
     
     CGFloat smallBtnW = (currentSize.width - 13*margin)/10;
     CGFloat btnH = (currentSize.height - 5*margin)/4;
@@ -694,6 +723,7 @@
     btn.frame = CGRectMake(padMargin + 2*margin+bigBtnW, 4*margin + btnH*3, bigBtnW, btnH);
     self.symbolBtn.frame = CGRectMake(padMargin + 3*margin + 2*bigBtnW, 4*margin + btnH*3, bigBtnW, btnH);
     self.okBtn.frame = CGRectMake(padMargin + 4*margin + 3*bigBtnW, 4*margin + btnH*3, bigBtnW, btnH);
+    
 }
 
 #pragma mark - SIPassWordKeyBoardBtnDelegate
@@ -760,6 +790,7 @@
     }
     return _symbolPad;
 }
+
 
 - (void)keyboardNumPadDidClickSwitchBtn:(UIButton *)btn{
     if ([btn.titleLabel.text isEqualToString:@"ABC"]) {

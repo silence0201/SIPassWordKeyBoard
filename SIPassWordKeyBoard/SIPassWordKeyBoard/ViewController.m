@@ -25,16 +25,8 @@
     text.center = self.view.center;
     
     SIPassWordKeyBoard *keyBoard = [[SIPassWordKeyBoard alloc]initWithKeyBoardType:SIPassWordKeyBoardNumPadDefault];
-    keyBoard.frame = CGRectMake(0, 0, 320, 216);
     
-    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 216)];
-    if (iPhoneX) {
-        view.frame = CGRectMake(0, 0, 320, 216 + 44);
-    }
-    [view addSubview:keyBoard];
-    view.backgroundColor = keyBoard.backgroundColor;
-    
-    text.inputView = view;
+    text.inputView = keyBoard;
     [self.view addSubview:text];
     
 }
