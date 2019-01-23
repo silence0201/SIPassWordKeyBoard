@@ -11,11 +11,11 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSUInteger, SITextFieldPasswordType) {
-    SITextFieldPasswordTypeNone,
-    SITextFieldPasswordTypeDefault,
-    SITextFieldPasswordTypeRandomDefault,
-    SITextFieldPasswordTypeOnlyNum,
-    SITextFieldPasswordTypeRandomOnlyNum
+    SITextFieldPasswordTypeNone,  // 不使用
+    SITextFieldPasswordTypeDefault, // 默认,包含符号和字母
+    SITextFieldPasswordTypeRandomDefault, // 默认并且随机,包含符号和字母
+    SITextFieldPasswordTypeOnlyNum,  // 只包含数字
+    SITextFieldPasswordTypeRandomOnlyNum  // 只包含数字并随机
 };
 
 @interface UITextField (PassWord)
